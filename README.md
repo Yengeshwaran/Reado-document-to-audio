@@ -16,9 +16,7 @@ Transform your documents into an audio podcast experience with AI-powered insigh
 - **✍️ Text Input**: Paste text directly (up to 1000 characters)
 - **🤖 AI-Powered Summaries**: Local extractive summarization (no cloud APIs)
 - **� Keey Notes Extraction**: Automatically identify 5-10 most important points
-- **🔊 Text-to-Speech**: Listen to unlimited text with chunked reading
-- **✨ Real-Time Highlighting**: Text highlights in sync with speech playback
-- **📊 Reading Progress Bar**: Visual progress indicator during playback
+- **🔊 Text-to-Speech**: Listen to unlimited text with chunked reading.
 - **🎛️ Mini-Player**: Floating audio controls with waveform animation
 - **🧠 Understanding AI**: Analyze document meaning, topics, themes, and intent
 - **🤖 AI Assistant**: Floating chatbot that answers questions about your document
