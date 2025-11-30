@@ -1,10 +1,10 @@
 // App Controller
-import { DocumentParser } from '../modules/documentParser.js';
-import { Summarizer } from '../modules/summarizer.js';
-import { KeyNotesGenerator } from '../modules/keynotes.js';
-import { TTSEngine } from '../modules/tts.js';
-import { UnderstandingEngine } from '../modules/understand.js';
-import { AssistantEngine } from '../modules/assistant.js';
+import { DocumentParser } from './modules/documentParser.js';
+import { Summarizer } from './modules/summarizer.js';
+import { KeyNotesGenerator } from './modules/keynotes.js';
+import { TTSEngine } from './modules/tts.js';
+import { UnderstandingEngine } from './modules/understand.js';
+import { AssistantEngine } from './modules/assistant.js';
 
 // Application state
 const appState = {
@@ -787,7 +787,7 @@ function addMessageToChat(message, sender) {
     } else {
         messageDiv.innerHTML = `
             <div class="assistant-avatar-small">
-                <img src="../assets/reado-assistant.svg" alt="Assistant">
+                <img src="assets/reado-assistant.svg" alt="Assistant">
             </div>
             <div class="message-bubble assistant-bubble">${escapeHtml(message)}</div>
         `;
@@ -805,7 +805,7 @@ function addTypingIndicator() {
     typingDiv.id = 'typing-indicator';
     typingDiv.innerHTML = `
         <div class="assistant-avatar-small">
-            <img src="../assets/reado-assistant.svg" alt="Assistant">
+            <img src="assets/reado-assistant.svg" alt="Assistant">
         </div>
         <div class="message-bubble assistant-bubble">
             <span class="typing-dots">●●●</span>

@@ -3,7 +3,7 @@ export class DocumentParser {
     constructor() {
         // Configure PDF.js worker
         if (typeof pdfjsLib !== 'undefined') {
-            pdfjsLib.GlobalWorkerOptions.workerSrc = '../libs/pdf.worker.min.js';
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'libs/pdf.worker.min.js';
         }
     }
 

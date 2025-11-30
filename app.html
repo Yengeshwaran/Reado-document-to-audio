@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data: blob:; connect-src 'none'; font-src 'self' data:; media-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <title>🎧 Reado - Document to Podcast</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="hidden"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="bg-gradient-to-r from-reado-indigo to-reado-violet text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo and Brand -->
+                <div class="flex items-center gap-3">
+                    <img src="assets/reado-logo.svg" alt="Reado Logo" class="h-10 w-10">
+                    <div>
+                        <h1 class="text-2xl font-bold">Reado</h1>
+                        <p class="text-xs text-blue-100">Read Smarter. Listen Better.</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#upload" class="hover:text-reado-highlight transition">Upload</a>
+                    <a href="#text-input" class="hover:text-reado-highlight transition">Text Input</a>
+                    <a href="#summary" class="hover:text-reado-highlight transition">Summary</a>
+                    <a href="#keynotes" class="hover:text-reado-highlight transition">Key Notes</a>
+                    <a href="index.html" class="hover:text-reado-highlight transition">Home</a>
+                    <button id="themeToggle" class="p-2 hover:bg-white/10 rounded-lg transition" title="Toggle dark mode">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 hover:bg-white/10 rounded-lg transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col gap-3">
+                    <a href="#upload" class="hover:text-reado-highlight transition py-2">Upload</a>
+                    <a href="#text-input" class="hover:text-reado-highlight transition py-2">Text Input</a>
+                    <a href="#summary" class="hover:text-reado-highlight transition py-2">Summary</a>
+                    <a href="#keynotes" class="hover:text-reado-highlight transition py-2">Key Notes</a>
+                    <a href="index.html" class="hover:text-reado-highlight transition py-2">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Reading Progress Bar -->
+    <div id="readingProgress" class="reading-progress"></div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8"></main>
+        <!-- Error Message -->
+        <div id="errorContainer" class="hidden mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+                <div class="flex items-start gap-3">
+                    <span class="text-red-500 text-xl">⚠️</span>
+                    <p id="errorMessage" class="text-red-800"></p>
+                </div>
+                <button id="dismissError" class="text-red-500 hover:text-red-700 font-bold">✕</button>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <section id="upload" class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">📄 Upload Document</h2>
+            <div class="flex flex-col sm:flex-row gap-4 items-start">
+                <input type="file" id="fileInput" accept=".pdf,.docx,.txt" 
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                <div id="fileInfo" class="text-sm text-gray-600 hidden"></div>
+            </div>
+        </section>
+
+        <!-- Text Input Section -->
+        <section id="text-input" class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">✍️ Text Input</h2>
+            <p class="text-sm text-gray-600 mb-3">Or paste your text directly (up to 1000 characters)</p>
+            <textarea id="textInput" maxlength="1000" rows="6" 
+                      placeholder="Paste your text here..."
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+            <div class="flex justify-between items-center mt-2">
+                <div class="text-sm text-gray-500">
+                    <span id="charCount">0</span> / 1000 characters
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    <button id="processTextBtn" disabled 
+                            class="px-4 py-2 btn-reado-primary text-white rounded-full hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all text-sm">
+                        Process Text
+                    </button>
+                    <button id="clearTextBtn" 
+                            class="px-4 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 hover:shadow-lg transition-all text-sm">
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="hidden flex justify-center items-center py-8">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <span class="ml-3 text-gray-600">Processing...</span>
+        </div>
+
+        <!-- Full Text Section -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">Full Text</h2>
+                <button id="playFullBtn" disabled 
+                        class="px-4 py-2 btn-reado-primary text-white rounded-full hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all">
+                    <span>▶</span> Play Full
+                </button>
+            </div>
+            <div id="fullTextPanel" class="bg-gray-50 rounded p-4 max-h-64 overflow-y-auto text-gray-700 whitespace-pre-wrap">
+                <p class="text-gray-400 italic">Upload a document to see the extracted text here...</p>
+            </div>
+            <div class="mt-4">
+                <button id="summarizeBtn" disabled 
+                        class="px-4 py-2 btn-reado-primary text-white rounded-full hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all">
+                    Summarize
+                </button>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary" class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">📝 Summary</h2>
+                <button id="playSummaryBtn" disabled 
+                        class="px-4 py-2 btn-reado-primary text-white rounded-full hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all">
+                    <span>▶</span> Play Summary
+                </button>
+            </div>
+            <div id="summaryPanel" class="bg-gray-50 rounded p-4 max-h-64 overflow-y-auto text-gray-700 whitespace-pre-wrap">
+                <p class="text-gray-400 italic">Click "Summarize" to generate a summary...</p>
+            </div>
+        </section>
+
+        <!-- Key Notes Section -->
+        <section id="keynotes" class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">🔑 Key Notes</h2>
+                <button id="generateNotesBtn" disabled 
+                        class="px-4 py-2 btn-reado-primary text-white rounded-full hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all">
+                    Generate Key Notes
+                </button>
+            </div>
+            <div id="keyNotesPanel" class="bg-gray-50 rounded p-4 text-gray-700">
+                <p class="text-gray-400 italic">Click "Generate Key Notes" to extract key points...</p>
+            </div>
+        </section>
+
+        <!-- Understanding Section -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">🧠 Understanding</h2>
+                <button id="explainBtn" disabled 
+                        class="px-4 py-2 btn-reado-primary text-white rounded-full hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all">
+                    Explain Content
+                </button>
+            </div>
+            <div id="understandingPanel" class="bg-gray-50 rounded p-4 text-gray-700">
+                <p class="text-gray-400 italic">Click "Explain Content" to analyze document meaning, topics, and themes...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Assistant Button -->
+    <button id="assistantBtn" class="assistant-btn" title="Ask Reado Assistant">
+        <img src="assets/reado-assistant.svg" alt="Assistant" class="assistant-avatar">
+    </button>
+
+    <!-- Assistant Chat Panel -->
+    <div id="assistantPanel" class="assistant-panel hidden">
+        <div class="assistant-header">
+            <div class="flex items-center gap-3">
+                <img src="assets/reado-assistant.svg" alt="Assistant" class="h-8 w-8">
+                <div>
+                    <h3 class="font-bold text-white">Reado Assistant</h3>
+                    <p class="text-xs text-blue-100">Ask me anything about your document</p>
+                </div>
+            </div>
+            <button id="closeAssistantBtn" class="text-white hover:text-gray-200 text-2xl">×</button>
+        </div>
+        
+        <div id="chatHistory" class="assistant-chat">
+            <div class="assistant-message">
+                <div class="assistant-avatar-small">
+                    <img src="assets/reado-assistant.svg" alt="Assistant">
+                </div>
+                <div class="message-bubble assistant-bubble">
+                    👋 Hi! I'm your Reado Assistant. Upload a document and I'll help you understand it by answering your questions!
+                </div>
+            </div>
+        </div>
+        
+        <div class="assistant-input">
+            <input type="text" id="assistantInput" placeholder="Ask a question about your document..." 
+                   class="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="sendQuestionBtn" class="btn-reado-primary text-white px-4 py-2 rounded-full hover:shadow-lg transition-all">
+                Send
+            </button>
+        </div>
+    </div>
+
+    <!-- Mini-Player (Floating Audio Controls) -->
+    <div id="miniPlayer" class="mini-player hidden">
+        <div class="waveform">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+        <div class="mini-player-info">
+            <div class="mini-player-time" id="miniPlayerTime">0:00 / 0:00</div>
+            <div class="mini-player-title" id="miniPlayerTitle">Playing...</div>
+        </div>
+        <div class="mini-player-controls">
+            <button id="miniPlayPauseBtn" class="px-3 py-1 btn-reado-primary text-white rounded-full hover:shadow-lg text-sm transition-all">
+                ⏸ Pause
+            </button>
+            <button id="miniStopBtn" class="px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 hover:shadow-lg text-sm transition-all">
+                ⏹ Stop
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-6">
+                <p class="text-xl font-semibold text-white mb-2">🎧 Reado</p>
+                <p class="text-sm text-gray-400">Read Smarter. Listen Better.</p>
+            </div>
+            <div class="bg-green-900/20 border border-green-700/30 rounded-xl p-4 mb-6 max-w-2xl mx-auto">
+                <p class="text-center text-green-300 font-medium mb-3">
+                    🔒 100% Private & Secure
+                </p>
+                <div class="text-center text-sm text-green-400/80 space-y-1">
+                    <p>✓ All processing happens in your browser</p>
+                    <p>✓ No data sent to external servers</p>
+                    <p>✓ No analytics, cookies, or tracking</p>
+                    <p>✓ No cloud APIs or third-party services</p>
+                    <p>✓ Works completely offline</p>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-500">
+                <p>© 2025 Reado. Open source under MIT License.</p>
+                <p class="mt-1">100% private • Zero cost • Works offline</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="libs/pdf.min.js"></script>
+    <script src="libs/mammoth.browser.min.js"></script>
+    <script type="module" src="modules/documentParser.js"></script>
+    <script type="module" src="modules/summarizer.js"></script>
+    <script type="module" src="modules/keynotes.js"></script>
+    <script type="module" src="modules/tts.js"></script>
+    <script type="module" src="modules/understand.js"></script>
+    <script type="module" src="modules/assistant.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
