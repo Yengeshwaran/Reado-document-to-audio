@@ -7,7 +7,7 @@
 
 Transform your documents into an audio podcast experience with AI-powered insights - completely free, private, and offline-capable!
 
-**🚀 [Try Demo](https://yengeshwaran.github.io/Reado-document-to-audio/) | 📖 [Documentation](README.md) | 🐛 [Report Issue](https://github.com/yengeshwaran/reado/issues)**
+**🚀 [Try Demo](https://yengeshwaran.github.io/Reado-document-to-audio/) | 📖 [Documentation](README.md) |
 
 ## ✨ Features
 
