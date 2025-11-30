@@ -89,8 +89,6 @@ Transform your documents into an audio podcast experience with AI-powered insigh
 2. Click "▶ Play Summary" to hear just the summary
 3. Watch text highlight in real-time as it's being read
 4. Use the mini-player controls (Play, Pause, Stop)
-5. Track progress with the reading progress bar
-6. Text auto-scrolls to keep highlighted section centered
 
 ### Ask the AI Assistant
 1. Click the floating assistant button (bottom-right)
@@ -171,19 +169,6 @@ Reado is built with a **zero-cost, zero-cloud** architecture:
 
 Reado features an advanced speech-synchronization system that enhances the listening experience:
 
-**Real-Time Highlighting:**
-- Text highlights as it's being spoken
-- Uses `utterance.onboundary` events to track word positions
-- Highlights current sentence with gradient background
-- Fades previous text for better focus
-- Auto-scrolls to keep highlighted text centered
-
-**Progress Tracking:**
-- Visual progress bar at the top of the page
-- Shows percentage of document read
-- Updates in real-time during playback
-- Syncs with chunk-based reading
-
 **Mini-Player:**
 - Floating controls that stay visible during playback
 - Animated waveform visualization
@@ -229,7 +214,6 @@ Your documents are processed entirely on your device. We cannot see, store, or a
 | Key Notes | ✅ | ✅ | ✅ |
 | Understanding AI | ❌ | ✅ | ✅ |
 | Text-to-Speech | ✅ | ✅ | ✅ |
-| Real-time Highlighting | ❌ | ✅ | ✅ |
 | Mini-Player | ❌ | ✅ | ✅ |
 | AI Assistant | ❌ | ❌ | ✅ |
 | Dark Mode | ❌ | ❌ | ✅ |
