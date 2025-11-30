@@ -1,0 +1,10 @@
+# Embedding Model Directory
+
+Place MiniLM ONNX model files here for semantic search and similarity features.
+
+Required files:
+- model.onnx
+- tokenizer.json
+- config.json (optional)
+
+This directory is currently empty and reserved for future enhancements.

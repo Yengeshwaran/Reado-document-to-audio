@@ -1,0 +1,34 @@
+{
+  "name": "reado",
+  "version": "1.0.0",
+  "description": "🎧 Reado - Transform documents into audio podcasts. Zero-cost, browser-only, 100% private.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "test": "echo 'Open test-basic.html in your browser to run tests'"
+  },
+  "keywords": [
+    "document",
+    "podcast",
+    "text-to-speech",
+    "summarization",
+    "pdf",
+    "docx",
+    "browser",
+    "offline",
+    "privacy",
+    "zero-cost"
+  ],
+  "author": "Reado Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/reado.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/reado/issues"
+  },
+  "homepage": "https://github.com/yourusername/reado#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}

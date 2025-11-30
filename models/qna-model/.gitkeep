@@ -1,0 +1,10 @@
+# Q&A Model Directory
+
+Place DistilBERT-QA ONNX model files here for AI-powered question answering.
+
+Required files:
+- model.onnx
+- tokenizer.json
+- config.json (optional)
+
+This directory is currently empty. The app uses rule-based Q&A as fallback.
